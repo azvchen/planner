@@ -4,5 +4,13 @@ from viewer.models import Section
 
 
 def index(request):
+    return sections(request)
+
+
+def sections(request):
     section_list = Section.objects.all()
-    return render(request, 'viewer/index.html', {'section_list': section_list})
+    return render(request, 'viewer/sections.html', {'section_list': section_list})
+
+
+def requirements(request):
+    return sections(request)
