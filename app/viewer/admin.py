@@ -6,11 +6,15 @@ from viewer.models import Department, Course, RequirementSet, Degree, SchoolArea
 class CourseInline(admin.TabularInline):
     model = Course
     extra = 3
+    ordering = ('number',)
 
 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('dept_id', 'name')
     inlines = [CourseInline]
+    list_display = ('dept_id', 'name')
+    list_editable = ('name',)
+    ordering = ('dept_id',)
+    search_fields = ('dept_id', 'name')
 
 
 class CourseSetInline(admin.TabularInline):

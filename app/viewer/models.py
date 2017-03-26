@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import time
+
 
 class Department(models.Model):
     dept_id = models.CharField(max_length=4, primary_key=True)
@@ -22,7 +24,6 @@ class Instructor(models.Model):
         if not instructor:
             instructor = Instructor(name=name)
             instructor.dept = dept
-            instructor.save()
         return instructor
 
     def __str__(self):
@@ -36,7 +37,7 @@ class Course(models.Model):
     dept = models.ForeignKey(Department, on_delete=models.CASCADE)
     number = models.CharField(max_length=4)
     title = models.CharField(max_length=100)
-    hours = models.IntegerField()
+    hours = models.DecimalField(max_digits=3, decimal_places=1)
 
     @staticmethod
     def add_if_missing(dept, number, title, hours):
@@ -44,7 +45,6 @@ class Course(models.Model):
         if not course:
             course = Course(number=number, title=title, hours=hours)
             course.dept = dept
-            course.save()
         return course
 
     def __str__(self):
@@ -97,6 +97,20 @@ class Section(models.Model):
 
     enrollment = models.IntegerField(default=0)
     max_enrollment = models.IntegerField()
+
+    @staticmethod
+    def add_if_missing(section_id, course, semester, year, instructor, format, days,
+                       start_time, end_time, location, enrollment, max_enrollment):
+        section = Section.objects.filter(section_id=section_id, course=course, semester=semester, year=year).first()
+        if not section:
+            section = Section(section_id=section_id, format=format, semester=semester, year=year,
+                              monday=days[0], tuesday=days[1], wednesday=days[2], thursday=days[3], friday=days[4],
+                              location=location, enrollment=enrollment, max_enrollment=max_enrollment)
+            section.course = course
+            section.instructor = instructor
+            section.start_time = time(hour=int(start_time[:-2]), minute=int(start_time[-2:]))
+            section.end_time = time(hour=int(end_time[:-2]), minute=int(end_time[-2:]))
+        return section
 
     def __str__(self):
         return str(self.course) + '-' + self.section_id
