@@ -1,0 +1,18 @@
+
+.container {
+	padding: 1rem;
+}
+
+.requirementList,
+.semesterList,
+.courseList {
+	list-style: none;
+}
+
+.course {
+	background-color: grey;
+}
+
+input {
+	display: block;
+}
