@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UVA Planner</title>
+</head>
+<body>
+<h2>UVA Planner</h2>
+
+<table>
+    <tr>
+        <td>Dept</td>
+        <td>Number</td>
+        <td>Section</td>
+        <td>Title</td>
+        <td>Instructor</td>
+        <td>Format</td>
+        <td>Hours</td>
+        <td>Days</td>
+        <td>Start Time</td>
+        <td>End Time</td>
+        <td>Location</td>
+        <td>Enrollment</td>
+    </tr>
+    {% for section in section_list %}
+        <tr>
+            <td>{{ section.course.dept.dept_id }}</td>
+            <td>{{ section.course.number }}</td>
+            <td>{{ section.section_id }}</td>
+            <td>{{ section.course.title }}</td>
+            <td>{{ section.instructor.name }}</td>
+            <td>{{ section.format }}</td>
+            <td>{{ section.course.hours }}</td>
+            <td>
+                {% if section.monday %}M{% endif %}
+                {% if section.tuesday %}T{% endif %}
+                {% if section.wednesday %}W{% endif %}
+                {% if section.thursday %}R{% endif %}
+                {% if section.friday %}F{% endif %}
+            </td>
+            <td>{{ section.start_time }}</td>
+            <td>{{ section.end_time }}</td>
+            <td>{{ section.location }}</td>
+            <td>{{ section.enrollment }}/{{ section.max_enrollment }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

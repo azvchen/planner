@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from viewer.models import Section
 
 
 def index(request):
-    return HttpResponse("The planner is dope.")
+    section_list = Section.objects.all()
+    return render(request, 'viewer/index.html', {'section_list': section_list})
