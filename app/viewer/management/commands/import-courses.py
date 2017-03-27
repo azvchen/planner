@@ -3,8 +3,6 @@ from django.db import transaction
 
 from viewer.models import Department, Instructor, Course, Section
 
-from datetime import time
-
 import urllib.request
 from html.parser import HTMLParser
 

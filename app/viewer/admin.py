@@ -25,6 +25,10 @@ class CourseSetInline(admin.TabularInline):
 
 class DegreeAdmin(admin.ModelAdmin):
     inlines = [CourseSetInline]
+    list_display = ('__str__', 'department')
+
+    def department(self, obj):
+        return obj.dept.name
 
 
 class SchoolAreaAdmin(admin.ModelAdmin):

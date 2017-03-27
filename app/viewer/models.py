@@ -128,7 +128,7 @@ class Degree(RequirementSet):
     degree_type = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.dept.dept_id + ' ' + self.degree_type
+        return self.degree_type + ' ' + self.dept.dept_id
 
 
 class SchoolArea(RequirementSet):
